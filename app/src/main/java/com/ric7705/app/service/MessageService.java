@@ -1,13 +1,16 @@
 package com.ric7705.app.service;
 
 import com.ric7705.app.controller.param.MessageParam;
-import org.springframework.stereotype.Service;
+import com.ric7705.app.model.Message;
+
 import reactor.core.publisher.Flux;
 
 
 public interface MessageService {
 
-    Flux<MessageParam> getMessage(String id);
+    Flux<Message> getMessage(String id);
 
     void createMessage(MessageParam messageParam);
+
+    Flux<Message> getAllMessage();
 }
