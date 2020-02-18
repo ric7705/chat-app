@@ -16,7 +16,6 @@ import java.util.Date;
 public class MessageParam {
 
     private Long id;
-    private String title;
     private String content;
     private String from;
     private String to;

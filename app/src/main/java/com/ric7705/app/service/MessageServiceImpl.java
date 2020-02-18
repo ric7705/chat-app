@@ -34,7 +34,6 @@ public class MessageServiceImpl implements MessageService {
 
         Message newMsg = new Message().builder().from(param.getFrom())
                 .to(param.getTo())
-                .title(param.getTitle())
                 .content(param.getContent())
                 .id(UUID.randomUUID().toString())
                 .createDate(new Date())
