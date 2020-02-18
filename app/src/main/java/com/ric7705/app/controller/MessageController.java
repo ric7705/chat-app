@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/message")
+@CrossOrigin(value = "http://localhost:4200")
 public class MessageController {
 
     @Autowired

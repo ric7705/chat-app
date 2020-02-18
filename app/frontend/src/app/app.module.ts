@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChatBoxModule } from './chat-box/chat-box.module';
+import { MessageModule } from './message/message.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,8 +12,9 @@ import { ChatBoxModule } from './chat-box/chat-box.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    ChatBoxModule
+    MessageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

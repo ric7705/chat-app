@@ -11,4 +11,4 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
   ],
   exports: [ChatBoxComponent]
 })
-export class ChatBoxModule { }
+export class MessageModule { }
