@@ -15,7 +15,7 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document(value = "message_capped")
 public class Message {
 
     @Id

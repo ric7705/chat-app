@@ -8,9 +8,12 @@ import reactor.core.publisher.Flux;
 
 public interface MessageService {
 
-    Flux<Message> getMessage(String id);
+    Flux<Message> getOneToOneMessage(String user1, String user2);
+
+    Flux<Message> getUserMessage(String to);
 
     void createMessage(MessageParam messageParam);
 
     Flux<Message> getAllMessage();
+    Flux<Message> getMsgByUser(String user);
 }

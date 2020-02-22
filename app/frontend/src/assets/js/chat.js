@@ -1,44 +1,33 @@
-$(document).on("click", ".panel-heading span.icon_minim", function(e) {
-  var $this = $(this);
-  if (!$this.hasClass("panel-collapsed")) {
-    $this
-      .parents(".panel")
-      .find(".panel-body")
-      .slideUp();
-    $this.addClass("panel-collapsed");
-    $this.removeClass("glyphicon-minus").addClass("glyphicon-plus");
+$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+$("#profile-img").click(function() {
+  $("#status-options").toggleClass("active");
+});
+
+$(".expand-button").click(function() {
+  $("#profile").toggleClass("expanded");
+  $("#contacts").toggleClass("expanded");
+});
+
+$("#status-options ul li").click(function() {
+  $("#profile-img").removeClass();
+  $("#status-online").removeClass("active");
+  $("#status-away").removeClass("active");
+  $("#status-busy").removeClass("active");
+  $("#status-offline").removeClass("active");
+  // $(this).addClass("active");
+
+  if ($("#status-online").hasClass("active")) {
+    $("#profile-img").addClass("online");
+  } else if ($("#status-away").hasClass("active")) {
+    $("#profile-img").addClass("away");
+  } else if ($("#status-busy").hasClass("active")) {
+    $("#profile-img").addClass("busy");
+  } else if ($("#status-offline").hasClass("active")) {
+    $("#profile-img").addClass("offline");
   } else {
-    $this
-      .parents(".panel")
-      .find(".panel-body")
-      .slideDown();
-    $this.removeClass("panel-collapsed");
-    $this.removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    $("#profile-img").removeClass();
   }
-});
-$(document).on("focus", ".panel-footer input.chat_input", function(e) {
-  var $this = $(this);
-  if ($("#minim_chat_window").hasClass("panel-collapsed")) {
-    $this
-      .parents(".panel")
-      .find(".panel-body")
-      .slideDown();
-    $("#minim_chat_window").removeClass("panel-collapsed");
-    $("#minim_chat_window")
-      .removeClass("glyphicon-plus")
-      .addClass("glyphicon-minus");
-  }
-});
-$(document).on("click", "#new_chat", function(e) {
-  var size = $(".chat-window:last-child").css("margin-left");
-  size_total = parseInt(size) + 400;
-  alert(size_total);
-  var clone = $("#chat_window_1")
-    .clone()
-    .appendTo(".container");
-  clone.css("margin-left", size_total);
-});
-$(document).on("click", ".icon_close", function(e) {
-  //$(this).parent().parent().parent().parent().remove();
-  $("#chat_window_1").remove();
+
+  $("#status-options").removeClass("active");
 });

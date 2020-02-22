@@ -18,15 +18,19 @@ public class MessageServiceImpl implements MessageService {
     MessageRepo messageRepo;
 
     @Override
-    public Flux<Message> getMessage(String to) {
+    public Flux<Message> getUserMessage(String to) {
 
-        MessageParam mock = new MessageParam();
-        mock.setFrom("user1");
-        mock.setTo("user2");
+        return messageRepo.findUserMessage(to);
+    }
 
-        return messageRepo.findAllByTo(to);
-//        Flux<MessageParam> res = Flux.just(mock);
-//        return res;
+    @Override
+    public Flux<Message> getOneToOneMessage(String user1, String user2) {
+
+//        MessageParam mock = new MessageParam();
+//        mock.setFrom("user1");
+//        mock.setTo("user2");
+
+        return messageRepo.findTwoUserMessage(user1, user2);
     }
 
     @Override
@@ -45,5 +49,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Flux<Message> getAllMessage(){
         return messageRepo.findAll();
+    }
+
+    @Override
+    public Flux<Message> getMsgByUser(String user) {
+        return messageRepo.findByFromOrTo(user, user);
     }
 }

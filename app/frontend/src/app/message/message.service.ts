@@ -1,8 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from './message.model';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { SseService } from '../sse.service';
+import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -35,10 +36,23 @@ export class MessageService {
 
       eventSource.onerror = error => {
         this._zone.run(() => {
+          console.log('error');
           observer.error(error);
-
         })
       };
     });
+  }
+
+  sendMessage(payload: any) {
+    const url = this.apiRoot;
+    console.log('post: ' + url);
+    return this.http.post<any>(url, payload, httpOptions)
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          return throwError("Error thrown from catchError");
+        })
+      );
+
   }
 }

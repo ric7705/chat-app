@@ -1,97 +1,137 @@
-<link
-  href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<div id="frame">
+  <div id="sidepanel">
+    <div id="profile">
+      <div class="wrap">
+        <img
+          id="profile-img"
+          src="https://fakeimg.pl/449x449/"
+          class="online"
+          alt=""
+        />
+        <p>{{ currentUser }}</p>
+        <!-- <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i> -->
+        <!-- <div id="status-options">
+					<ul>
+						<li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
+						<li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
+						<li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
+						<li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
+					</ul>
+				</div> -->
+        <!-- <div id="expanded">
+					<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+					<input name="twitter" type="text" value="mikeross" />
+					<label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+					<input name="twitter" type="text" value="ross81" />
+					<label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+					<input name="twitter" type="text" value="mike.ross" />
+				</div> -->
+      </div>
+    </div>
+    <div id="search">
+      <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+      <input
+        #kw
+        type="text"
+        [(ngModel)]="contactFilter"
+        placeholder="Search contacts..."
+        (input)="filterContact(kw.value)"
+      />
+    </div>
 
-<div class="container">
-  <div
-    class="row chat-window col-xs-5 col-md-3"
-    id="chat_window_1"
-    style="margin-left:10px;"
-  >
-    <div class="col-xs-12 col-md-12">
-      <div class="panel panel-default">
-        <!-- chat header -->
-        <div class="panel-heading top-bar">
-          <div class="col-md-8 col-xs-8">
-            <h3 class="panel-title">
-              <span class="glyphicon glyphicon-comment"></span> Chat - Miguel
-            </h3>
-          </div>
-          <div class="col-md-4 col-xs-4" style="text-align: right;">
-            <a href="#"
-              ><span
-                id="minim_chat_window"
-                class="glyphicon glyphicon-minus icon_minim"
-              ></span
-            ></a>
-            <a href="#"
-              ><span
-                class="glyphicon glyphicon-remove icon_close"
-                data-id="chat_window_1"
-              ></span
-            ></a>
-          </div>
-        </div>
-
-        <!-- msg -->
-        <div class="panel-body msg_container_base">
-          <!-- <div class="row msg_container base_sent">
-            <div class="col-md-10 col-xs-10">
-              <div class="messages msg_sent">
-                <p>
-                  that mongodb thing looks good, huh? tiny master db, and huge
-                  document store
-                </p>
-                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-              </div>
-            </div>
-            <div class="col-md-2 col-xs-2 avatar">
-              <img
-                src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                class=" img-responsive "
-              />
-            </div>
-          </div> -->
-
-          <div
-            *ngFor="let msg of msgList"
-            class="row msg_container base_receive"
-          >
-            <div class="col-md-2 col-xs-2 avatar">
-              <img
-                src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                class=" img-responsive "
-              />
-            </div>
-            <div class="col-md-10 col-xs-10">
-              <div class="messages msg_receive">
-                <p>
-                  {{ msg }}
-                </p>
-                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-              </div>
+    <!-- sample -->
+    <!-- <div id="contacts">
+      <ul>
+        <li class="contact">
+          <div class="wrap">
+            <span class="contact-status online"></span>
+            <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+            <div class="meta">
+              <p class="name">Louis Litt</p>
+              <p class="preview">You just got LITT up, Mike.</p>
             </div>
           </div>
-        </div>
-
-        <div class="panel-footer">
-          <div class="input-group">
-            <input
-              id="btn-input"
-              type="text"
-              class="form-control input-sm chat_input"
-              placeholder="Write your message here..."
-            />
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
-            </span>
+        </li>
+        <li class="contact active">
+          <div class="wrap">
+            <span class="contact-status busy"></span>
+            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+            <div class="meta">
+              <p class="name">Harvey Specter</p>
+              <p class="preview">
+                Wrong. You take the gun, or you pull out a bigger one. Or, you
+                call their bluff. Or, you do any one of a hundred and forty six
+                other things.
+              </p>
+            </div>
           </div>
-        </div>
+        </li>
+      </ul>
+    </div> -->
+
+    <div id="contacts">
+      <ul>
+        <li
+          class="contact"
+          *ngFor="let contact of activeContactList"
+          (click)="updateContactList(contact)"
+          [ngClass]="{ active: isContactActive(contact) }"
+        >
+          <div class="wrap">
+            <span class="contact-status online"></span>
+            <img src="https://fakeimg.pl/449x449/" alt="" />
+            <div class="meta">
+              <p class="name">{{ contact }}</p>
+              <p class="preview"></p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div id="bottom-bar">
+			<button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
+			<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+		</div> -->
+  </div>
+  <div class="content">
+    <div class="contact-profile">
+      <img src="https://fakeimg.pl/449x449/" alt="" />
+      <p>{{ currentUser }}</p>
+      <div class="social-media">
+        <i class="fa fa-facebook" aria-hidden="true"></i>
+        <i class="fa fa-twitter" aria-hidden="true"></i>
+        <i class="fa fa-instagram" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="messages">
+      <ul>
+        <li
+          *ngFor="let msg of activeChatList"
+          [ngClass]="msg.from === currentUser ? 'sent' : 'replies'"
+        >
+          <img src="https://fakeimg.pl/449x449/" alt="" />
+          <p>{{ msg.content }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="message-input">
+      <div class="wrap">
+        <input
+          [(ngModel)]="msgToBeSend"
+          type="text"
+          placeholder="Write your message..."
+        />
+        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+        <button
+          class="submit"
+          (click)="submit_message(msgToBeSend)"
+          (keyup.enter)="submit_message(msgToBeSend)"
+        >
+          <i id="submit_btn" class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
