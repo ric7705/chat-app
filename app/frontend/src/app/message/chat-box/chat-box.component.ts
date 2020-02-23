@@ -19,9 +19,9 @@ export class ChatBoxComponent implements OnInit {
 
   msgToBeSend = '';
 
-  currentUser = 'jack';
+  currentUser = 'Jack';
 
-  contactList = ['john', 'mary', 'lily', 'eric'];
+  contactList = ['John', 'Nary', 'Lily', 'Eric'];
   activeContactList = this.contactList;
   contactFilter = '';
 
