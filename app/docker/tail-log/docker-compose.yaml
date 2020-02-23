@@ -1,0 +1,28 @@
+#mongo:
+#  environment:
+#    MONGO_INITDB_DATABASE: demo
+#    MONGO_INITDB_ROOT_USERNAME: admin
+#    MONGO_INITDB_ROOT_PASSWORD: password
+##  hostname: mongodb-server
+#  image: mongo
+#  ports:
+#  - "30000:27017"
+#  restart: always
+#  volumes:
+#  - ./mongo/001_users.js:/docker-entrypoint-initdb.d/001_users.js:ro
+#  - mongodb:/data/db
+#  - mongodb_config:/data/configdb
+
+
+version: '3.0'
+services:
+  mongo:
+    build: ./
+    restart: always
+    ports:
+    - 30000:27017
+    volumes:
+    - ./data:/docker-entrypoint-initdb.d/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
