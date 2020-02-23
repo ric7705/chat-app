@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Message } from './message.model';
 import { Observable, throwError } from 'rxjs';
 import { SseService } from '../sse.service';
@@ -19,10 +19,10 @@ export class MessageService {
     private http: HttpClient,
     private sseService: SseService) { }
 
-  private apiRoot = 'http://localhost:8080/message';
+  private apiRoot = 'http://localhost:8080';
 
   public getTest() {
-    return this.http.get<Message[]>(this.apiRoot + '/test');
+    return this.http.get<Message[]>(this.apiRoot + '/message/test');
   }
 
   getServerSendEvent(url: string) {
@@ -44,7 +44,7 @@ export class MessageService {
   }
 
   sendMessage(payload: any) {
-    const url = this.apiRoot;
+    const url = this.apiRoot + '/message';
     console.log('post: ' + url);
     return this.http.post<any>(url, payload, httpOptions)
       .pipe(
@@ -53,6 +53,18 @@ export class MessageService {
           return throwError("Error thrown from catchError");
         })
       );
+  }
 
+  getUserContact(username) {
+    const url = this.apiRoot + '/contact/' + username;
+
+    // const options = username ? { params: new HttpParams().set('username', username) } : {};
+    return this.http.get<any>(url)
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          return throwError("Error thrown from catchError");
+        })
+      );
   }
 }

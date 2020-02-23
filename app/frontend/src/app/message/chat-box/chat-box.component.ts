@@ -21,7 +21,7 @@ export class ChatBoxComponent implements OnInit {
 
   currentUser = 'Jack';
 
-  contactList = ['John', 'Nary', 'Lily', 'Eric'];
+  contactList = [];
   activeContactList = this.contactList;
   contactFilter = '';
 
@@ -48,6 +48,13 @@ export class ChatBoxComponent implements OnInit {
 
     this.docHeight = $(document).height();
 
+    this.messageService.getUserContact(this.currentUser)
+      .subscribe(r => {
+        console.log(r);
+        r.forEach(element => {
+          this.contactList.push(element);
+        });
+      });
   }
 
   updateContactList(contactName) {
